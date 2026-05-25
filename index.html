@@ -1722,4 +1722,15 @@
   function animateCounter(el, target) {
     let start = 0;
     const duration = 2000;
-    cons
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const val = Math.floor(progress * target);
+      el.textContent = el.textContent.replace(/\d+/, val);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+</script>
+</body>
+</html>
